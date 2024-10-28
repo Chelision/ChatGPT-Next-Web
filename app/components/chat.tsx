@@ -1048,10 +1048,13 @@ function C_Hat() {
 
   const doSubmit = (userInput: string) => {
     if (userInput.trim() === "" && isEmpty(attachImages) && isEmpty(attachFiles)) return;
-    userInput = userInput + "<br>" + fileInput
+    if(!!userInput && !!fileInput){
+      userInput = userInput + "<br>" + fileInput
+    }
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
       setUserInput("");
+      setFileInput("")
       setPromptHints([]);
       matchCommand.invoke();
       return;

@@ -1343,7 +1343,6 @@ export function Settings() {
               </div>
             </Popover>
           </ListItem>
-
           <ListItem
             title={Locale.Settings.Update.Version(currentVersion ?? "unknown")}
             subTitle={
@@ -1364,9 +1363,10 @@ export function Settings() {
                   onClick={() => clientUpdate()}
                 />
               ) : (
-                <Link href={updateUrl} target="_blank" className="link">
-                  {Locale.Settings.Update.GoToUpdate}
-                </Link>
+                // <Link href={updateUrl} target="_blank" className="link">
+                //   {Locale.Settings.Update.GoToUpdate}
+                // </Link>
+                <div></div>
               )
             ) : (
               <IconButton
@@ -1609,7 +1609,7 @@ export function Settings() {
         </List>
 
         <List id={SlotID.CustomModel}>
-          {saasStartComponent}
+          {/* {saasStartComponent} */}
           {accessCodeComponent}
 
           {!accessStore.hideUserApiKey && (

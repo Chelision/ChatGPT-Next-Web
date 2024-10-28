@@ -231,7 +231,7 @@ export function SideBar(props: { className?: string }) {
     >
       <SideBarHeader
         title="KNBox"
-        subTitle="Build your own AI assistant."
+        // subTitle="Build your own AI assistant."
         logo={<ChatGptIcon />}
         shouldNarrow={shouldNarrow}
       >
