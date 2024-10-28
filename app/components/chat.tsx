@@ -1047,10 +1047,8 @@ function C_Hat() {
   };
 
   const doSubmit = (userInput: string) => {
-    // debugger
     if (userInput.trim() === "" && isEmpty(attachImages) && isEmpty(attachFiles)) return;
     userInput = userInput + "<br>" + fileInput
-    console.log("90909090", 877,userInput)
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
       setUserInput("");
@@ -1564,7 +1562,6 @@ function C_Hat() {
       for (let file of files) {
         const fileType = file.type;
         const fileName = file.name
-        console.log(file.type)
         if (fileType === 'text/plain') {
           readTextFile(file,event.target);
         } else if (fileType === 'application/pdf') {
@@ -1604,8 +1601,6 @@ function C_Hat() {
         const arrayBuffer = e.target.result as ArrayBuffer; // 类型断言为 ArrayBuffer
         mammoth.extractRawText({ arrayBuffer })
           .then(result => {
-            // console.log(e.target)
-            // console.log(result.value)
             setFileInput(result.value)
           })
           .catch(err => {
@@ -2042,7 +2037,6 @@ function C_Hat() {
                       parentRef={scrollRef}
                       defaultShow={i >= messages.length - 6}
                     />
-                    ========
                       <div >
                         { message.fContent[0] && message.fContent[0].indexOf("pdf") !== -1 &&<img src={ "pdf.png" } alt="" style={{width: "200px", height:"200px"}}></img>}
                         { message.fContent[0] && message.fContent[0].indexOf("txt") !== -1 &&<img src={ "txt.png" } alt="" style={{width: "200px", height:"200px"}}></img>}
