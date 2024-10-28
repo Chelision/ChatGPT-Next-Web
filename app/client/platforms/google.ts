@@ -78,7 +78,8 @@ export class GeminiProApi implements LLMApi {
       const content = await preProcessImageContent(v.content);
       _messages.push({
         role: v.role, content,
-        fContent: []
+        fContent: [],
+        originInput:""
       });
     }
     const messages = _messages.map((v) => {

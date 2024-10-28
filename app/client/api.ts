@@ -40,7 +40,8 @@ export interface MultimodalContent {
 export interface RequestMessage {
   role: MessageRole;
   content: string | MultimodalContent[];
-  fContent: string[]
+  fContent: string[];
+  originInput: string
 }
 
 export interface LLMConfig {

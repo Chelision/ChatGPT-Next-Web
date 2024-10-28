@@ -282,7 +282,8 @@ export function Sd() {
                                   getMessageTextContent({
                                     role: "user",
                                     content: item.params.prompt,
-                                    fContent: []
+                                    fContent: [],
+                                    originInput:""
                                   }),
                                 )
                               }

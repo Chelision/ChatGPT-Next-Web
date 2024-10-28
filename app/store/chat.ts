@@ -61,6 +61,7 @@ export function createMessage(override: Partial<ChatMessage>): ChatMessage {
     role: "user",
     content: "",
     fContent:[],
+    originInput: "",
     ...override,
   };
 }
@@ -363,12 +364,14 @@ export const useChatStore = createPersistStore(
       },
       async onUserInput(content: string, attachImages?: string[], attachFiles?:string[]) {
         // debugger
+        let originInput
+        if(attachFiles && attachFiles.length > 0 && content.indexOf('<br>') !== -1){
+          originInput = content.split('<br>')[0]
+        }
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;
         const userContent = fillTemplateWith(content, modelConfig);
         let mContent: string | MultimodalContent[] = userContent;
-        // attachImages = attachImages?.length === 0 ? 
-        // let ArrayLists = [...attachImages||[], ...attachFiles||[]] 
         if (attachImages && attachImages.length > 0) {
           mContent = [
             ...(userContent
@@ -383,7 +386,8 @@ export const useChatStore = createPersistStore(
         let userMessage: ChatMessage = createMessage({
           role: "user",
           content: mContent,
-          fContent: attachFiles || []
+          fContent: attachFiles || [],
+          originInput: originInput || ""
         });
         const botMessage: ChatMessage = createMessage({
           role: "assistant",

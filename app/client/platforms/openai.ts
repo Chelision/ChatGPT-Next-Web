@@ -219,7 +219,8 @@ export class ChatGPTApi implements LLMApi {
         if (!(isO1 && v.role === "system"))
           messages.push({
             role: v.role, content,
-            fContent: []
+            fContent: [],
+            originInput:""
           });
       }
 

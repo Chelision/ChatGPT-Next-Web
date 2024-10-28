@@ -1047,9 +1047,10 @@ function C_Hat() {
   };
 
   const doSubmit = (userInput: string) => {
-    
+    // debugger
     if (userInput.trim() === "" && isEmpty(attachImages) && isEmpty(attachFiles)) return;
-    userInput = userInput + fileInput
+    userInput = userInput + "<br>" + fileInput
+    console.log("90909090", 877,userInput)
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
       setUserInput("");
@@ -1551,7 +1552,7 @@ function C_Hat() {
     // fileInput.accept =
     // "image/png, image/jpeg, image/webp, image/heic, image/heif";
     // fileInput.multiple = true;
-    fileInput.accept = 'text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf'
+    fileInput.accept = '.txt, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf'
     fileInput.addEventListener("change", async (event: any) => {
       setUploading(true);
       // const target = event.target as HTMLInputElement;
@@ -1563,8 +1564,9 @@ function C_Hat() {
       for (let file of files) {
         const fileType = file.type;
         const fileName = file.name
+        console.log(file.type)
         if (fileType === 'text/plain') {
-          readTextFile(file);
+          readTextFile(file,event.target);
         } else if (fileType === 'application/pdf') {
           readPdfFile(url);
         } else if (fileType === 'text/csv') {
@@ -1584,12 +1586,16 @@ function C_Hat() {
     fileInput.click()
     
   }
-  function readTextFile(file: any) {
+  function readTextFile(file: any, target: any) {
     const reader = new FileReader()
     reader.onload = function (e) {
       console.log("txt内容", e.target?.result)
       setFileInput(`${e.target?.result}`)
     }
+    reader.onerror = function(e) {
+      console.error('文件读取失败:');
+    };
+    reader.readAsText(file);
   }
   function readWordFile(file: File) {
     const reader = new FileReader();
@@ -1687,6 +1693,7 @@ function C_Hat() {
       const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
       var excelData = jsonData as string[][]; // 将 Excel 数据赋值给 excelData
       console.log(JSON.stringify(excelData))
+      setFileInput(String(excelData))
     };
     reader.readAsArrayBuffer(file);
   }
@@ -2016,6 +2023,7 @@ function C_Hat() {
                     </div>
                   )}
                   <div className={styles["chat-message-item"]}>
+                    {!!message.originInput && message.originInput}
                     <Markdown
                       key={message.streaming ? "loading" : "done"}
                       content={ message.fContent.length === 0 ? getMessageTextContent(message):""}
@@ -2034,6 +2042,7 @@ function C_Hat() {
                       parentRef={scrollRef}
                       defaultShow={i >= messages.length - 6}
                     />
+                    ========
                       <div >
                         { message.fContent[0] && message.fContent[0].indexOf("pdf") !== -1 &&<img src={ "pdf.png" } alt="" style={{width: "200px", height:"200px"}}></img>}
                         { message.fContent[0] && message.fContent[0].indexOf("txt") !== -1 &&<img src={ "txt.png" } alt="" style={{width: "200px", height:"200px"}}></img>}
@@ -2097,12 +2106,10 @@ function C_Hat() {
           hitBottom={hitBottom}
           uploading={uploading}
           showPromptHints={() => {
-            // Click again to close
             if (promptHints.length > 0) {
               setPromptHints([]);
               return;
             }
-
             inputRef.current?.focus();
             setUserInput("/");
             onSearch("");
@@ -2111,7 +2118,7 @@ function C_Hat() {
           setUserInput={setUserInput}
         />
         <label
-          className={`${styles["chat-input-panel-inner"]} ${attachImages.length != 0
+          className={`${styles["chat-input-panel-inner"]} ${(attachImages.length != 0 || attachFiles.length !== 0)
               ? styles["chat-input-panel-inner-attach"]
               : ""
             }`}
@@ -2136,11 +2143,10 @@ function C_Hat() {
               fontFamily: config.fontFamily,
             }}
           />
-          {attachFiles.length != 0 &&
-            <div className={styles["attach-images"]}>
+          {attachFiles.length != 0 &&(<div className={styles["attach-images"]}>
               {
                 <div className={styles["attach-image"]}>
-                  {(attachFiles[0].split('.'))[1] === "pdf" && imgBg("pdf.png", "", { width: `45px`, height: "45px" })}
+                  {(attachFiles[0].split('.'))[1] === "pdf" && imgBg("pdf.png", "", { width: `45px`, height: "45px",display:"block" })}
                   {(attachFiles[0].split('.'))[1] == "docx" && imgBg("word.png", "", { width: `45px`, height: "45px" })}
                   {(attachFiles[0].split('.'))[1] === "xlsx" && imgBg("xlsx.png", "", { width: `45px`, height: "45px" })}
                   {(attachFiles[0].split('.'))[1] === "txt" && imgBg("txt.png", "", { width: `45px`, height: "45px" })}
@@ -2148,6 +2154,9 @@ function C_Hat() {
                   <div className={styles["attach-file-mask"]}>
                     <DeleteImageButton
                       deleteImage={() => {
+                        setUserInput(
+                          ""
+                        );
                         setAttachFiles(
                           []
                         );
@@ -2155,32 +2164,8 @@ function C_Hat() {
                     />
                   </div>
                 </div>}
-            </div>
+            </div>)
             }
-          {/* {attachFiles.length != 0 && (
-            <div className={styles["attach-images"]}>
-              {
-                // debugger
-
-                  <div
-                    key={0}
-                    className={styles["attach-image"]}
-                    style={{ backgroundImage: `url("")` }}
-                  >
-                    <div className={styles["attach-image-mask"]}>
-                      <DeleteImageButton
-                        deleteImage={() => {
-                          setAttachImages(
-                            [],
-                          );
-                        }}
-                      />
-                    </div>
-                  </div>
-                
-              }
-            </div>
-          )} */}
           {attachImages.length != 0 && (
             <div className={styles["attach-images"]}>
               {attachImages.map((image, index) => {
@@ -2238,3 +2223,7 @@ export function Chat() {
   const sessionIndex = chatStore.currentSessionIndex;
   return <C_Hat key={sessionIndex}></C_Hat>;
 }
+function ref<T>(arg0: string) {
+  throw new Error("Function not implemented.");
+}
+

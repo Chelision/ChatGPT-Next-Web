@@ -104,7 +104,8 @@ export class ClaudeApi implements LLMApi {
       const content = await preProcessImageContent(v.content);
       messages.push({
         role: v.role, content,
-        fContent: []
+        fContent: [],
+        originInput:""
       });
     }
 

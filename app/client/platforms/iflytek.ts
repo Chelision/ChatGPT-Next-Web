@@ -70,7 +70,8 @@ export class SparkApi implements LLMApi {
       const content = getMessageTextContent(v);
       messages.push({
         role: v.role, content,
-        fContent: []
+        fContent: [],
+        originInput:""
       });
     }
 
