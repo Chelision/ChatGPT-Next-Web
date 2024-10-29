@@ -10,10 +10,10 @@ import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google";
 const serverConfig = getServerSideConfig();
 
 export const metadata: Metadata = {
-  title: "KnChat",
+  title: "KNBox",
   description: "Your personal ChatGPT Chat Bot.",
   appleWebApp: {
-    title: "KnChat",
+    title: "KNBox",
     statusBarStyle: "default",
   },
 };

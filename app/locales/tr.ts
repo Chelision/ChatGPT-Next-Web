@@ -27,7 +27,7 @@ const tr: PartialLocaleType = {
     Return: "Geri",
     SaasTips: "Ayarlar çok karmaşık, hemen kullanmak istiyorum",
     TopTips:
-      "🥳 KnChat AI lansman teklifi, OpenAI o1, GPT-4o, Claude-3.5 ve en son büyük modelleri şimdi açın",
+      "🥳 KNBox AI lansman teklifi, OpenAI o1, GPT-4o, Claude-3.5 ve en son büyük modelleri şimdi açın",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} konuşma`,
@@ -297,10 +297,10 @@ const tr: PartialLocaleType = {
 
     Access: {
       SaasStart: {
-        Title: "KnChat AI kullanın",
+        Title: "KNBox AI kullanın",
         Label: "(En maliyet etkin çözüm)",
         SubTitle:
-          "KnChat tarafından resmi olarak yönetilmektedir, yapılandırma olmadan hemen kullanıma hazırdır, OpenAI o1, GPT-4o, Claude-3.5 gibi en son büyük modelleri destekler",
+          "KNBox tarafından resmi olarak yönetilmektedir, yapılandırma olmadan hemen kullanıma hazırdır, OpenAI o1, GPT-4o, Claude-3.5 gibi en son büyük modelleri destekler",
         ChatNow: "Şimdi sohbet et",
       },
 

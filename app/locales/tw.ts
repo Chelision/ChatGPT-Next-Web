@@ -27,7 +27,7 @@ const tw = {
     Return: "返回",
     SaasTips: "設定太麻煩，想要立即使用",
     TopTips:
-      "🥳 KnChat AI 首發優惠，立刻解鎖 OpenAI o1, GPT-4o, Claude-3.5 等最新的大型語言模型",
+      "🥳 KNBox AI 首發優惠，立刻解鎖 OpenAI o1, GPT-4o, Claude-3.5 等最新的大型語言模型",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 則對話`,
@@ -298,10 +298,10 @@ const tw = {
 
     Access: {
       SaasStart: {
-        Title: "使用 KnChat AI",
+        Title: "使用 KNBox AI",
         Label: "(性價比最高的方案)",
         SubTitle:
-          "由 KnChat 官方維護，無須設定開箱即用，支援 OpenAI o1、GPT-4o、Claude-3.5 等最新的大型語言模型",
+          "由 KNBox 官方維護，無須設定開箱即用，支援 OpenAI o1、GPT-4o、Claude-3.5 等最新的大型語言模型",
         ChatNow: "立刻開始對話",
       },
 

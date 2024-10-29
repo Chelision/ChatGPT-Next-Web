@@ -363,10 +363,12 @@ export const useChatStore = createPersistStore(
         get().summarizeSession();
       },
       async onUserInput(content: string, attachImages?: string[], attachFiles?:string[]) {
-        // debugger
-        let originInput
+        let originInput=""
         if(attachFiles && attachFiles.length > 0 && content.indexOf('<br>') !== -1){
-          originInput = content.split('<br>')[0]
+          // originInput = content.split('<br>')[0]
+          if(content.split('<br>')[0] != content.split('<br>')[1]){
+            originInput = content.split('<br>')[0]
+          }
         }
         const session = get().currentSession();
         const modelConfig = session.mask.modelConfig;

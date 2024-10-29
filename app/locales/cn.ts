@@ -27,7 +27,7 @@ const cn = {
     Later: "稍后再说",
     SaasTips: "配置太麻烦，想要立即使用",
     TopTips:
-      "🥳 KnChat AI 首发优惠，立刻解锁 OpenAI o1, GPT-4o, Claude-3.5 等最新大模型",
+      "🥳 KNBox AI 首发优惠，立刻解锁 OpenAI o1, GPT-4o, Claude-3.5 等最新大模型",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
@@ -312,10 +312,10 @@ const cn = {
 
     Access: {
       SaasStart: {
-        Title: "使用 KnChat AI",
+        Title: "使用 KNBox AI",
         Label: "（性价比最高的方案）",
         SubTitle:
-          "由 KnChat 官方维护, 零配置开箱即用，支持 OpenAI o1, GPT-4o, Claude-3.5 等最新大模型",
+          "由 KNBox 官方维护, 零配置开箱即用，支持 OpenAI o1, GPT-4o, Claude-3.5 等最新大模型",
         ChatNow: "立刻对话",
       },
       AccessCode: {

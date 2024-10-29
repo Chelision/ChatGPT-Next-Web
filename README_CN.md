@@ -1,6 +1,6 @@
 <div align="center">
 
 
-<h1 align="center">KnChat</h1>
+<h1 align="center">KNBox</h1>
 
 

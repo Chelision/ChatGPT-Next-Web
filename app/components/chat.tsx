@@ -1545,6 +1545,7 @@ function C_Hat() {
 
   async function uploadFile() {
     let fileName;
+    setUploading(true);
     if(attachFiles.length !== 0){
       setAttachFiles([])
     }
@@ -1555,7 +1556,7 @@ function C_Hat() {
     // fileInput.multiple = true;
     fileInput.accept = '.txt, text/csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf'
     fileInput.addEventListener("change", async (event: any) => {
-      setUploading(true);
+      // setUploading(true);
       // const target = event.target as HTMLInputElement;
       let files = []
       files = event.target.files
@@ -1566,38 +1567,40 @@ function C_Hat() {
         const fileType = file.type;
         const fileName = file.name
         if (fileType === 'text/plain') {
-          readTextFile(file,event.target);
+          readTextFile(file,fileName);
         } else if (fileType === 'application/pdf') {
-          readPdfFile(url);
+          readPdfFile(url,fileName);
         } else if (fileType === 'text/csv') {
-          readCsvFile(file);
+          readCsvFile(file, fileName);
         } else if (fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-          readWordFile(file);
+          readWordFile(file, fileName);
         } else if (fileType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-          readXlsxFile(file)
+          readXlsxFile(file,fileName)
         } else {
           console.log('不支持的文件类型:', fileType);
         }
       }
       // attachFiles.push(fileName)
-      setAttachFiles([fileName])
-      setUploading(false);
+      // setAttachFiles([fileName])
+      // setUploading(false);
     })
     fileInput.click()
     
   }
-  function readTextFile(file: any, target: any) {
+  function readTextFile(file: any, fileName:string) {
     const reader = new FileReader()
     reader.onload = function (e) {
       console.log("txt内容", e.target?.result)
       setFileInput(`${e.target?.result}`)
+      setAttachFiles([fileName])
+      setUploading(false)
     }
     reader.onerror = function(e) {
       console.error('文件读取失败:');
     };
     reader.readAsText(file);
   }
-  function readWordFile(file: File) {
+  function readWordFile(file: File,fileName:string) {
     const reader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
       if (e.target?.result && typeof e.target.result !== 'string') {
@@ -1605,6 +1608,8 @@ function C_Hat() {
         mammoth.extractRawText({ arrayBuffer })
           .then(result => {
             setFileInput(result.value)
+            setAttachFiles([fileName])
+            setUploading(false)
           })
           .catch(err => {
             console.error('解析Word文件时出错:', err);
@@ -1613,11 +1618,12 @@ function C_Hat() {
     };
     reader.readAsArrayBuffer(file);
   }
-  function readPdfFile(url: String) {
+  function readPdfFile(url: String, fileName:string) {
     var pdfText = { value: "" }
     const loadingTask = pdfjsLib.getDocument(url);
     loadingTask.promise
       .then(async (pdf) => {
+        // debugger
         console.log('PDF loaded');
         const textContent: string[] = [];
         // 遍历 PDF 页码
@@ -1631,8 +1637,10 @@ function C_Hat() {
           textContent.push(`Page ${pageNum}: ${pageText}`);
         }
         pdfText.value = textContent.join('\n\n'); // 将提取的文本赋值给 pdfText
-        console.log(pdfText.value,666777)
         setFileInput(pdfText.value)
+        setAttachFiles([fileName])
+        setUploading(false)
+        console.log(pdfText.value,666777)
       })
       .catch((reason) => {
         console.error('Error loading PDF: ' + reason);
@@ -1669,7 +1677,7 @@ function C_Hat() {
     // };
     // reader.readAsArrayBuffer(file);
   }
-  function readCsvFile(file: File) {
+  function readCsvFile(file: File, fileName:string) {
     const reader = new FileReader();
     reader.onload = (e: any) => {
       Papa.parse(e.target.result, {
@@ -1677,12 +1685,14 @@ function C_Hat() {
           // this.fileContents = JSON.stringify(results.data, null, 2);
           console.log('CSV内容:', results.data);
           setFileInput(String(results.data))
+          setAttachFiles([fileName])
+          setUploading(false)
         }
       });
     };
     reader.readAsText(file);
   }
-  function readXlsxFile(file: File) {
+  function readXlsxFile(file: File,fileName:string) {
     const reader = new FileReader();
     reader.onload = (e) => {
       const data = new Uint8Array(e.target?.result as ArrayBuffer);
@@ -1692,6 +1702,8 @@ function C_Hat() {
       var excelData = jsonData as string[][]; // 将 Excel 数据赋值给 excelData
       console.log(JSON.stringify(excelData))
       setFileInput(String(excelData))
+      setAttachFiles([fileName])
+      setUploading(false)
     };
     reader.readAsArrayBuffer(file);
   }

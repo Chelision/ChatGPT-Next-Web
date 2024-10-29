@@ -28,7 +28,7 @@ const de: PartialLocaleType = {
     SaasTips:
       "Die Konfiguration ist zu kompliziert, ich möchte es sofort nutzen",
     TopTips:
-      "🥳 KnChat AI Einführungsangebot, schalte jetzt OpenAI o1, GPT-4o, Claude-3.5 und die neuesten großen Modelle frei",
+      "🥳 KNBox AI Einführungsangebot, schalte jetzt OpenAI o1, GPT-4o, Claude-3.5 und die neuesten großen Modelle frei",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} Gespräche`,
@@ -303,10 +303,10 @@ const de: PartialLocaleType = {
 
     Access: {
       SaasStart: {
-        Title: "KnChat AI verwenden",
+        Title: "KNBox AI verwenden",
         Label: "(Die kosteneffektivste Lösung)",
         SubTitle:
-          "Offiziell von KnChat verwaltet, sofort einsatzbereit ohne Konfiguration, unterstützt die neuesten großen Modelle wie OpenAI o1, GPT-4o und Claude-3.5",
+          "Offiziell von KNBox verwaltet, sofort einsatzbereit ohne Konfiguration, unterstützt die neuesten großen Modelle wie OpenAI o1, GPT-4o und Claude-3.5",
         ChatNow: "Jetzt chatten",
       },
 

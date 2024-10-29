@@ -28,7 +28,7 @@ const en: LocaleType = {
     Later: "Later",
     SaasTips: "Too Complex, Use Immediately Now",
     TopTips:
-      "🥳 KnChat AI launch promotion: Instantly unlock the latest models like OpenAI o1, GPT-4o, Claude-3.5!",
+      "🥳 KNBox AI launch promotion: Instantly unlock the latest models like OpenAI o1, GPT-4o, Claude-3.5!",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
@@ -315,10 +315,10 @@ const en: LocaleType = {
     },
     Access: {
       SaasStart: {
-        Title: "Use KnChat AI",
+        Title: "Use KNBox AI",
         Label: " (Most Cost-Effective Option)",
         SubTitle:
-          "Maintained by KnChat, zero setup needed, unlock OpenAI o1, GPT-4o," +
+          "Maintained by KNBox, zero setup needed, unlock OpenAI o1, GPT-4o," +
           " Claude-3.5 and more",
         ChatNow: "Start Now",
       },
